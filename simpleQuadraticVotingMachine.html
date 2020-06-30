@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+""" made by Johnny da Storm with lots of help from the internet. Provided license free for any prpose you like """
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #363636;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #363636;
+  cursor: pointer;
+}
+body{
+  color: white;
+}
+
+h1{
+  color: black;
+}
+h3{
+  color: black;
+}
+
+button {
+  background-color: #4e4e4e;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.columnNarrow {
+  float: left;
+  width: 17%;
+  padding: 0px;
+  line-height: 50%
+}
+.columnWide {
+  float: left;
+  width: 70%;
+  padding: 0px;
+  position: relative;
+  top: 50%;
+  transform: translateY(40%);
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+</head>
+<body>
+<h1>A simple quadratic voting machine with OECD Better Life Index categories</h1>
+<p style="color:black">You get 100 points, but the more you vote for one thing the less that vote is worth (the number gets squared).</p>
+<p style="color:black">Drag the sliders to indicate your preferences. If you can't see them all you can zoom out a bit. If you would like to make this better please be my guest!</p>
+
+<h3> Budget remaining: <span id="rb" > </span> </h2>
+
+<div class="slidecontainer">
+ <div class="row" style="background-color:#25978b">
+  <div class="columnNarrow">
+	<h2> Housing </h2>
+	<p>Points spent: <span id="v00"></span></p>
+  </div>
+  <div class="columnWide">
+	<input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="s00">
+  </div>
+ </div>
+</div>
+
+<div class="slidecontainer">
+ <div class="row" style="background-color:#2396c9">
+  <div class="columnNarrow">
+	<h2> Income </h2>
+	<p>Points spent: <span id="v01"></span></p>
+  </div>
+  <div class="columnWide">
+	<input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="s01">
+  </div>
+ </div>
+</div>
+
+
+<div class="slidecontainer">
+ <div class="row" style="background-color:#1073a2">
+  <div class="columnNarrow">
+	<h2> Jobs </h2>
+	<p>Points spent: <span id="v02"></span></p>
+  </div>
+  <div class="columnWide">
+	<input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="s02">
+  </div>
+ </div>
+</div>
+
+<div class="slidecontainer">
+ <div class="row" style="background-color:#d93a57">
+  <div class="columnNarrow">
+	<h2> Community </h2>
+	<p>Points spent: <span id="v03"></span></p>
+  </div>
+  <div class="columnWide">
+	<input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="s03">
+  </div>
+ </div>
+</div>
+
+<div class="slidecontainer">
+ <div class="row" style="background-color:#79a335">
+  <div class="columnNarrow">
+	<h2> Education </h2>
+	<p>Points spent: <span id="v04"></span></p>
+  </div>
+  <div class="columnWide">
+	<input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="s04">
+  </div>
+ </div>
+</div>
+
+<div class="slidecontainer">
+ <div class="row" style="background-color:#0e964c">
+  <div class="columnNarrow">
+	<h2> Environment </h2>
+	<p>Points spent: <span id="v05"></span></p>
+  </div>
+  <div class="columnWide">
+	<input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="s05">
+  </div>
+ </div>
+</div>
+
+<div class="slidecontainer">
+ <div class="row" style="background-color:#d6a206">
+  <div class="columnNarrow">
+	<h2> Civic Engagement </h2>
+	<p>Points spent: <span id="v06"></span></p>
+  </div>
+  <div class="columnWide">
+	<input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="s06">
+  </div>
+ </div>
+</div>
+
+<div class="slidecontainer">
+ <div class="row" style="background-color:#75296c">
+  <div class="columnNarrow">
+	<h2> Health </h2>
+	<p>Points spent: <span id="v07"></span></p>
+  </div>
+  <div class="columnWide">
+	<input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="s07">
+  </div>
+ </div>
+</div>
+
+<div class="slidecontainer">
+ <div class="row" style="background-color:#df5e25">
+  <div class="columnNarrow">
+	<h2> Life Satisfaction </h2>
+	<p>Points spent: <span id="v08"></span></p>
+  </div>
+  <div class="columnWide">
+	<input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="s08">
+  </div>
+ </div>
+</div>
+
+<div class="slidecontainer">
+ <div class="row" style="background-color:#565759">
+  <div class="columnNarrow">
+	<h2> Safety </h2>
+	<p>Points spent: <span id="v09"></span></p>
+  </div>
+  <div class="columnWide">
+	<input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="s09">
+  </div>
+ </div>
+</div>
+
+<div class="slidecontainer">
+ <div class="row" style="background-color:#962622">
+  <div class="columnNarrow">
+	<h2> Work-Life Balance </h2>
+	<p>Points spent: <span id="v10"></span></p>
+  </div>
+  <div class="columnWide">
+	<input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="s10">
+  </div>
+ </div>
+</div>
+
+<span style="color:black">Where are you?: </span>
+<select id="country" name="country">
+   <option value="nowhere">nowhere</option>
+   <option value="Afganistan">Afghanistan</option>
+   <option value="Albania">Albania</option>
+   <option value="Algeria">Algeria</option>
+   <option value="American Samoa">American Samoa</option>
+   <option value="Andorra">Andorra</option>
+   <option value="Angola">Angola</option>
+   <option value="Anguilla">Anguilla</option>
+   <option value="Antigua & Barbuda">Antigua & Barbuda</option>
+   <option value="Argentina">Argentina</option>
+   <option value="Armenia">Armenia</option>
+   <option value="Aruba">Aruba</option>
+   <option value="Australia">Australia</option>
+   <option value="Austria">Austria</option>
+   <option value="Azerbaijan">Azerbaijan</option>
+   <option value="Bahamas">Bahamas</option>
+   <option value="Bahrain">Bahrain</option>
+   <option value="Bangladesh">Bangladesh</option>
+   <option value="Barbados">Barbados</option>
+   <option value="Belarus">Belarus</option>
+   <option value="Belgium">Belgium</option>
+   <option value="Belize">Belize</option>
+   <option value="Benin">Benin</option>
+   <option value="Bermuda">Bermuda</option>
+   <option value="Bhutan">Bhutan</option>
+   <option value="Bolivia">Bolivia</option>
+   <option value="Bonaire">Bonaire</option>
+   <option value="Bosnia & Herzegovina">Bosnia & Herzegovina</option>
+   <option value="Botswana">Botswana</option>
+   <option value="Brazil">Brazil</option>
+   <option value="British Indian Ocean Ter">British Indian Ocean Ter</option>
+   <option value="Brunei">Brunei</option>
+   <option value="Bulgaria">Bulgaria</option>
+   <option value="Burkina Faso">Burkina Faso</option>
+   <option value="Burundi">Burundi</option>
+   <option value="Cambodia">Cambodia</option>
+   <option value="Cameroon">Cameroon</option>
+   <option value="Canada">Canada</option>
+   <option value="Canary Islands">Canary Islands</option>
+   <option value="Cape Verde">Cape Verde</option>
+   <option value="Cayman Islands">Cayman Islands</option>
+   <option value="Central African Republic">Central African Republic</option>
+   <option value="Chad">Chad</option>
+   <option value="Channel Islands">Channel Islands</option>
+   <option value="Chile">Chile</option>
+   <option value="China">China</option>
+   <option value="Christmas Island">Christmas Island</option>
+   <option value="Cocos Island">Cocos Island</option>
+   <option value="Colombia">Colombia</option>
+   <option value="Comoros">Comoros</option>
+   <option value="Congo">Congo</option>
+   <option value="Cook Islands">Cook Islands</option>
+   <option value="Costa Rica">Costa Rica</option>
+   <option value="Cote DIvoire">Cote DIvoire</option>
+   <option value="Croatia">Croatia</option>
+   <option value="Cuba">Cuba</option>
+   <option value="Curaco">Curacao</option>
+   <option value="Cyprus">Cyprus</option>
+   <option value="Czech Republic">Czech Republic</option>
+   <option value="Denmark">Denmark</option>
+   <option value="Djibouti">Djibouti</option>
+   <option value="Dominica">Dominica</option>
+   <option value="Dominican Republic">Dominican Republic</option>
+   <option value="East Timor">East Timor</option>
+   <option value="Ecuador">Ecuador</option>
+   <option value="Egypt">Egypt</option>
+   <option value="El Salvador">El Salvador</option>
+   <option value="Equatorial Guinea">Equatorial Guinea</option>
+   <option value="Eritrea">Eritrea</option>
+   <option value="Estonia">Estonia</option>
+   <option value="Ethiopia">Ethiopia</option>
+   <option value="Falkland Islands">Falkland Islands</option>
+   <option value="Faroe Islands">Faroe Islands</option>
+   <option value="Fiji">Fiji</option>
+   <option value="Finland">Finland</option>
+   <option value="France">France</option>
+   <option value="French Guiana">French Guiana</option>
+   <option value="French Polynesia">French Polynesia</option>
+   <option value="French Southern Ter">French Southern Ter</option>
+   <option value="Gabon">Gabon</option>
+   <option value="Gambia">Gambia</option>
+   <option value="Georgia">Georgia</option>
+   <option value="Germany">Germany</option>
+   <option value="Ghana">Ghana</option>
+   <option value="Gibraltar">Gibraltar</option>
+   <option value="Great Britain">Great Britain</option>
+   <option value="Greece">Greece</option>
+   <option value="Greenland">Greenland</option>
+   <option value="Grenada">Grenada</option>
+   <option value="Guadeloupe">Guadeloupe</option>
+   <option value="Guam">Guam</option>
+   <option value="Guatemala">Guatemala</option>
+   <option value="Guinea">Guinea</option>
+   <option value="Guyana">Guyana</option>
+   <option value="Haiti">Haiti</option>
+   <option value="Hawaii">Hawaii</option>
+   <option value="Honduras">Honduras</option>
+   <option value="Hong Kong">Hong Kong</option>
+   <option value="Hungary">Hungary</option>
+   <option value="Iceland">Iceland</option>
+   <option value="Indonesia">Indonesia</option>
+   <option value="India">India</option>
+   <option value="Iran">Iran</option>
+   <option value="Iraq">Iraq</option>
+   <option value="Ireland">Ireland</option>
+   <option value="Isle of Man">Isle of Man</option>
+   <option value="Israel">Israel</option>
+   <option value="Italy">Italy</option>
+   <option value="Jamaica">Jamaica</option>
+   <option value="Japan">Japan</option>
+   <option value="Jordan">Jordan</option>
+   <option value="Kazakhstan">Kazakhstan</option>
+   <option value="Kenya">Kenya</option>
+   <option value="Kiribati">Kiribati</option>
+   <option value="Korea North">Korea North</option>
+   <option value="Korea Sout">Korea South</option>
+   <option value="Kuwait">Kuwait</option>
+   <option value="Kyrgyzstan">Kyrgyzstan</option>
+   <option value="Laos">Laos</option>
+   <option value="Latvia">Latvia</option>
+   <option value="Lebanon">Lebanon</option>
+   <option value="Lesotho">Lesotho</option>
+   <option value="Liberia">Liberia</option>
+   <option value="Libya">Libya</option>
+   <option value="Liechtenstein">Liechtenstein</option>
+   <option value="Lithuania">Lithuania</option>
+   <option value="Luxembourg">Luxembourg</option>
+   <option value="Macau">Macau</option>
+   <option value="Macedonia">Macedonia</option>
+   <option value="Madagascar">Madagascar</option>
+   <option value="Malaysia">Malaysia</option>
+   <option value="Malawi">Malawi</option>
+   <option value="Maldives">Maldives</option>
+   <option value="Mali">Mali</option>
+   <option value="Malta">Malta</option>
+   <option value="Marshall Islands">Marshall Islands</option>
+   <option value="Martinique">Martinique</option>
+   <option value="Mauritania">Mauritania</option>
+   <option value="Mauritius">Mauritius</option>
+   <option value="Mayotte">Mayotte</option>
+   <option value="Mexico">Mexico</option>
+   <option value="Midway Islands">Midway Islands</option>
+   <option value="Moldova">Moldova</option>
+   <option value="Monaco">Monaco</option>
+   <option value="Mongolia">Mongolia</option>
+   <option value="Montserrat">Montserrat</option>
+   <option value="Morocco">Morocco</option>
+   <option value="Mozambique">Mozambique</option>
+   <option value="Myanmar">Myanmar</option>
+   <option value="Nambia">Nambia</option>
+   <option value="Nauru">Nauru</option>
+   <option value="Nepal">Nepal</option>
+   <option value="Netherland Antilles">Netherland Antilles</option>
+   <option value="Netherlands">Netherlands (Holland, Europe)</option>
+   <option value="Nevis">Nevis</option>
+   <option value="New Caledonia">New Caledonia</option>
+   <option value="New Zealand">New Zealand</option>
+   <option value="Nicaragua">Nicaragua</option>
+   <option value="Niger">Niger</option>
+   <option value="Nigeria">Nigeria</option>
+   <option value="Niue">Niue</option>
+   <option value="Norfolk Island">Norfolk Island</option>
+   <option value="Norway">Norway</option>
+   <option value="Oman">Oman</option>
+   <option value="Pakistan">Pakistan</option>
+   <option value="Palau Island">Palau Island</option>
+   <option value="Palestine">Palestine</option>
+   <option value="Panama">Panama</option>
+   <option value="Papua New Guinea">Papua New Guinea</option>
+   <option value="Paraguay">Paraguay</option>
+   <option value="Peru">Peru</option>
+   <option value="Phillipines">Philippines</option>
+   <option value="Pitcairn Island">Pitcairn Island</option>
+   <option value="Poland">Poland</option>
+   <option value="Portugal">Portugal</option>
+   <option value="Puerto Rico">Puerto Rico</option>
+   <option value="Qatar">Qatar</option>
+   <option value="Republic of Montenegro">Republic of Montenegro</option>
+   <option value="Republic of Serbia">Republic of Serbia</option>
+   <option value="Reunion">Reunion</option>
+   <option value="Romania">Romania</option>
+   <option value="Russia">Russia</option>
+   <option value="Rwanda">Rwanda</option>
+   <option value="St Barthelemy">St Barthelemy</option>
+   <option value="St Eustatius">St Eustatius</option>
+   <option value="St Helena">St Helena</option>
+   <option value="St Kitts-Nevis">St Kitts-Nevis</option>
+   <option value="St Lucia">St Lucia</option>
+   <option value="St Maarten">St Maarten</option>
+   <option value="St Pierre & Miquelon">St Pierre & Miquelon</option>
+   <option value="St Vincent & Grenadines">St Vincent & Grenadines</option>
+   <option value="Saipan">Saipan</option>
+   <option value="Samoa">Samoa</option>
+   <option value="Samoa American">Samoa American</option>
+   <option value="San Marino">San Marino</option>
+   <option value="Sao Tome & Principe">Sao Tome & Principe</option>
+   <option value="Saudi Arabia">Saudi Arabia</option>
+   <option value="Senegal">Senegal</option>
+   <option value="Seychelles">Seychelles</option>
+   <option value="Sierra Leone">Sierra Leone</option>
+   <option value="Singapore">Singapore</option>
+   <option value="Slovakia">Slovakia</option>
+   <option value="Slovenia">Slovenia</option>
+   <option value="Solomon Islands">Solomon Islands</option>
+   <option value="Somalia">Somalia</option>
+   <option value="South Africa">South Africa</option>
+   <option value="Spain">Spain</option>
+   <option value="Sri Lanka">Sri Lanka</option>
+   <option value="Sudan">Sudan</option>
+   <option value="Suriname">Suriname</option>
+   <option value="Swaziland">Swaziland</option>
+   <option value="Sweden">Sweden</option>
+   <option value="Switzerland">Switzerland</option>
+   <option value="Syria">Syria</option>
+   <option value="Tahiti">Tahiti</option>
+   <option value="Taiwan">Taiwan</option>
+   <option value="Tajikistan">Tajikistan</option>
+   <option value="Tanzania">Tanzania</option>
+   <option value="Thailand">Thailand</option>
+   <option value="Togo">Togo</option>
+   <option value="Tokelau">Tokelau</option>
+   <option value="Tonga">Tonga</option>
+   <option value="Trinidad & Tobago">Trinidad & Tobago</option>
+   <option value="Tunisia">Tunisia</option>
+   <option value="Turkey">Turkey</option>
+   <option value="Turkmenistan">Turkmenistan</option>
+   <option value="Turks & Caicos Is">Turks & Caicos Is</option>
+   <option value="Tuvalu">Tuvalu</option>
+   <option value="Uganda">Uganda</option>
+   <option value="United Kingdom">United Kingdom</option>
+   <option value="Ukraine">Ukraine</option>
+   <option value="United Arab Erimates">United Arab Emirates</option>
+   <option value="United States of America">United States of America</option>
+   <option value="Uraguay">Uruguay</option>
+   <option value="Uzbekistan">Uzbekistan</option>
+   <option value="Vanuatu">Vanuatu</option>
+   <option value="Vatican City State">Vatican City State</option>
+   <option value="Venezuela">Venezuela</option>
+   <option value="Vietnam">Vietnam</option>
+   <option value="Virgin Islands (Brit)">Virgin Islands (Brit)</option>
+   <option value="Virgin Islands (USA)">Virgin Islands (USA)</option>
+   <option value="Wake Island">Wake Island</option>
+   <option value="Wallis & Futana Is">Wallis & Futana Is</option>
+   <option value="Yemen">Yemen</option>
+   <option value="Zaire">Zaire</option>
+   <option value="Zambia">Zambia</option>
+   <option value="Zimbabwe">Zimbabwe</option>
+</select>
+
+<button id="butt_face">Send me your quadratic votes!</button>
+<p style="color:black"><span id="butt"></span></p>
+<p style="color:black">PS: you can visit ma wee blog <a href="https://socialmaterialsscience.wordpress.com/"> here</a>.</p>
+<br>  </br>
+<iframe id="the_form" src="https://docs.google.com/forms/d/e/1FAIpQLScdglP-2NyYGzl5IiR052ZPZxOZ41VKnKOemkl-Dss6J7NREQ/viewform?embedded=true" width="640" height="406" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+<script>
+
+// bits conneting to stuff on screen
+var remaining_budget = document.getElementById("rb");
+var button_message = document.getElementById("butt");
+var country_selector = document.getElementById("country");
+var the_button = document.getElementById("butt_face");
+var form_face = document.getElementById("the_form");
+
+
+var slider00 = document.getElementById("s00");
+var slider01 = document.getElementById("s01");
+var slider02 = document.getElementById("s02");
+var slider03 = document.getElementById("s03");
+var slider04 = document.getElementById("s04");
+var slider05 = document.getElementById("s05");
+var slider06 = document.getElementById("s06");
+var slider07 = document.getElementById("s07");
+var slider08 = document.getElementById("s08");
+var slider09 = document.getElementById("s09");
+var slider10 = document.getElementById("s10");
+
+var squared00 = document.getElementById("v00");
+var squared01 = document.getElementById("v01");
+var squared02 = document.getElementById("v02");
+var squared03 = document.getElementById("v03");
+var squared04 = document.getElementById("v04");
+var squared05 = document.getElementById("v05");
+var squared06 = document.getElementById("v06");
+var squared07 = document.getElementById("v07");
+var squared08 = document.getElementById("v08");
+var squared09 = document.getElementById("v09");
+var squared10 = document.getElementById("v10");
+
+squared00.innerHTML = slider00.value;
+squared01.innerHTML = slider01.value;
+squared02.innerHTML = slider02.value;
+squared03.innerHTML = slider03.value;
+squared04.innerHTML = slider04.value;
+squared05.innerHTML = slider05.value;
+squared06.innerHTML = slider06.value;
+squared07.innerHTML = slider07.value;
+squared08.innerHTML = slider08.value;
+squared09.innerHTML = slider09.value;
+squared10.innerHTML = slider10.value;
+
+slider00.oninput = function() {
+	var new_value = knobMoved(0,this.value);
+	if (new_value > 0){
+		squared00.innerHTML = parseFloat(new_value).toFixed(2);
+	}
+	remaining_budget.innerHTML = parseFloat(remaining).toFixed(2);
+}
+
+slider01.oninput = function() {
+	var new_value = knobMoved(1,this.value);
+	if (new_value > 0){
+		squared01.innerHTML = parseFloat(new_value).toFixed(2);
+	}
+	remaining_budget.innerHTML = parseFloat(remaining).toFixed(2);
+}
+
+slider02.oninput = function() {
+	var new_value = knobMoved(2,this.value);
+	if (new_value > 0){
+		squared02.innerHTML = parseFloat(new_value).toFixed(2);
+	}
+	remaining_budget.innerHTML = parseFloat(remaining).toFixed(2);
+}
+
+slider03.oninput = function() {
+	var new_value = knobMoved(3,this.value);
+	if (new_value > 0){
+		squared03.innerHTML = parseFloat(new_value).toFixed(2);
+	}
+	remaining_budget.innerHTML = parseFloat(remaining).toFixed(2);
+}
+
+slider04.oninput = function() {
+	var new_value = knobMoved(4,this.value);
+	if (new_value > 0){
+		squared04.innerHTML = parseFloat(new_value).toFixed(2);
+	}
+	remaining_budget.innerHTML = parseFloat(remaining).toFixed(2);
+}
+
+slider05.oninput = function() {
+	var new_value = knobMoved(5,this.value);
+	if (new_value > 0){
+		squared05.innerHTML = parseFloat(new_value).toFixed(2);
+	}
+	remaining_budget.innerHTML = parseFloat(remaining).toFixed(2);
+}
+
+slider06.oninput = function() {
+	var new_value = knobMoved(6,this.value);
+	if (new_value > 0){
+		squared06.innerHTML = parseFloat(new_value).toFixed(2);
+	}
+	remaining_budget.innerHTML = parseFloat(remaining).toFixed(2);
+}
+
+slider07.oninput = function() {
+	var new_value = knobMoved(7,this.value);
+	if (new_value > 0){
+		squared07.innerHTML = parseFloat(new_value).toFixed(2);
+	}
+	remaining_budget.innerHTML = parseFloat(remaining).toFixed(2);
+}
+
+slider08.oninput = function() {
+	var new_value = knobMoved(8,this.value);
+	if (new_value > 0){
+		squared08.innerHTML = parseFloat(new_value).toFixed(2);
+	}
+	remaining_budget.innerHTML = parseFloat(remaining).toFixed(2);
+}
+
+slider09.oninput = function() {
+	var new_value = knobMoved(9,this.value);
+	if (new_value > 0){
+		squared09.innerHTML = parseFloat(new_value).toFixed(2);
+	}
+	remaining_budget.innerHTML = parseFloat(remaining).toFixed(2);
+}
+
+slider10.oninput = function() {
+	var new_value = knobMoved(10,this.value);
+	if (new_value > 0){
+		squared10.innerHTML = parseFloat(new_value).toFixed(2);
+	}
+	remaining_budget.innerHTML = parseFloat(remaining).toFixed(2);
+}
+
+the_button.onclick = function() {
+	if (country_selector.value === "nowhere") {
+		console.log("nowhere statement");
+		button_message.innerHTML = "Please select a country, even if you feel like you are nowhere :'(";
+	}else{
+		//send an email
+		results_to_send = "raw knobs:,"+String(knobs)+",squared knobs:,"+String(squared)+",Country:,"+String(country_selector.value)+"\n" ;
+		console.log(results_to_send);
+		form_face.value = results_to_send; // THIS DOESN'T WORK
+		//consider this form filler thing, then just use any old form and make it invisible: https://www.jqueryscript.net/form/jQuery-Plugin-To-Auto-Fill-Form-Elements-From-Preset-Data-Form-Autofill.html
+		button_message.innerHTML = "Nice one, thanks for letting me know your quadratic preferences!";
+	}
+}
+
+// meat and potatoes
+// initial declarations
+const num_sliders = 11;
+const budget = 100;
+var knobs = Array(num_sliders);
+knobs.fill(0);
+var squared = Array(num_sliders);
+squared.fill(0);
+var initial = budget;
+var remaining = budget;
+var results_to_send = "";
+
+remaining_budget.innerHTML = initial;
+button_message.innerHTML = "Just in case anyone actually visits here I thought I might as well collect the data. So please select your county and press the button when you're finished!";
+
+
+//some functions we'll need
+function sumArray(a){
+	var total = 0;
+	for(var i in a) { total += a[i];}
+	return total;
+}
+
+function squareArray(a){
+	var oot = Array(a.length);
+	for(var i in a) {oot[i] = a[i] * a[i];}
+	return oot;
+}
+
+function updateBudget(){
+	squared = squareArray(knobs);
+    remaining = initial - sumArray(squared);
+	console.log(squared);
+	console.log(remaining);
+}
+
+function knobMoved(knob_id,new_val){
+	var new_max = remaining + squared[knob_id];
+        if ((new_val*new_val) <= new_max ){
+            knobs[knob_id]=new_val;
+            updateBudget();
+            console.log("updated ok");
+		}
+        else{
+            //knobs[knob_id]=new_max;
+            updateBudget();
+            console.log("insufficient budget");
+		}
+	return squared[knob_id];
+}
+
+
+
+</script>
+
+</body>
+</html>

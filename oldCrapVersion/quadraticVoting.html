@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<h1>Simple quadratic voting machine</h1>
+<p>You get 100 points, but the more you vote for one thing the less that vote is worth.</p>
+<p>Drag the sliders to indicate your preferences.</p>
+
+<div class="slidecontainer">
+  <h2> Thing 1 </h2>
+  <input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="r0">
+  <p>Value: <span id="s0"></span></p>
+  <p>Points spent: <span id="sqrdVal0"></span></p>
+</div>
+
+<div class="slidecontainer">
+  <h2> Thing 2 </h2>
+  <input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="r1">
+  <p>Value: <span id="s1"></span></p>
+  <p>Points spent: <span id="sqrdVal1"></span></p>
+</div>
+
+<div class="slidecontainer">
+  <h2> Thing 3 </h2>
+  <input type="range" min="0" max="10" value="0" step="0.1" class="slider" id="r2">
+  <p>Value: <span id="s2"></span></p>
+  <p>Points spent: <span id="sqrdVal2"></span></p>
+</div>
+
+<br>  </br>
+<h2> Total: <span id="total" > </span> </h2>
+<h2> Points remaining: <span id="remaining" > </span> </h2>
+
+<script>
+// this function doesn't do anything right now and has global vars which aren't declared yet so will probably never work
+/*var totalUsed = document.getElementById("total");
+function updateTotal(){
+	var t = squared0.value + squared1.value;
+    return t;
+}*/
+var max_points = 100;
+var t=0;
+
+var slider0 = document.getElementById("r0");
+var output0 = document.getElementById("s0");
+var squared0 = document.getElementById("sqrdVal0");
+
+output0.innerHTML = slider0.value;
+
+slider0.oninput = function() {
+  output0.innerHTML = this.value;
+  //s0.textContent = (output0.innerHTML).toFixed(2);
+  squared0.innerHTML = this.value * this.value;
+}
+//----------------------------
+
+var slider1 = document.getElementById("r1");
+var output1 = document.getElementById("s1");
+var squared1 = document.getElementById("sqrdVal1");
+  
+output1.innerHTML = slider1.value;
+
+slider1.oninput = function() {
+  output1.innerHTML = this.value;
+  squared1.innerHTML = this.value * this.value;
+}
+//----------------------------
+var slider2 = document.getElementById("r2");
+var output2 = document.getElementById("s2");
+var squared2 = document.getElementById("sqrdVal2");
+  
+output1.innerHTML = slider1.value;
+
+slider2.oninput = function() {
+  output2.innerHTML = this.value;
+  squared2.innerHTML = this.value * this.value;
+}
+//----------------------------
+
+
+const f_update = (() => { t = Number(squared0.innerHTML) + Number(squared1.innerHTML) + Number(squared2.innerHTML);
+							total.textContent = t.toFixed(2);
+							remaining.textContent = (max_points - t).toFixed(2)});
+slider0.addEventListener ("input", f_update , false);
+slider1.addEventListener ("input", f_update , false);
+slider2.addEventListener ("input", f_update , false);
+
+</script>
+
+</body>
+</html>
